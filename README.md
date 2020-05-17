@@ -1,4 +1,4 @@
-## Basic Network Config using TLS
+## Basic Network Config using raft
 
 This project is for hyperledger fabric study.
 
@@ -14,7 +14,7 @@ This project is for hyperledger fabric study.
 - cli
 
 ### Ordering service
-- solo(default)
+- raft
 
 To start the basic network run ``start.sh``.
 
