@@ -11,9 +11,11 @@ mkdir config
 rm -rf crypto-config
 
 export PATH=$HOME/fabric-samples/bin:$PATH
+SYS_CHANNEL="byfn-sys-channel"
+
 cryptogen generate --config=./crypto-config.yaml
 
-configtxgen -profile SampleMultiNodeEtcdRaft -outputBlock ./config/genesis.block
+configtxgen -profile SampleMultiNodeEtcdRaft -channelID $SYS_CHANNEL -outputBlock ./config/genesis.block
 
 configtxgen -profile OneOrgChannel -outputCreateChannelTx ./config/channel.tx -channelID mychannel
 
