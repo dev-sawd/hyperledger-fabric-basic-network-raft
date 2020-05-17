@@ -13,7 +13,7 @@ rm -rf crypto-config
 export PATH=$HOME/fabric-samples/bin:$PATH
 cryptogen generate --config=./crypto-config.yaml
 
-configtxgen -profile OneOrgOrdererGenesis -outputBlock ./config/genesis.block
+configtxgen -profile SampleMultiNodeEtcdRaft -outputBlock ./config/genesis.block
 
 configtxgen -profile OneOrgChannel -outputCreateChannelTx ./config/channel.tx -channelID mychannel
 
@@ -21,6 +21,10 @@ configtxgen -profile OneOrgChannel -outputAnchorPeersUpdate ./config/Org1MSPanch
 
 export SK_NAME=$(cd crypto-config/peerOrganizations/org1.example.com/ca && ls *_sk)
 SK_NAME=$SK_NAME docker-compose -f docker-compose.yml up -d ca.example.com orderer.example.com peer0.org1.example.com couchdb cli peer1.org1.example.com orderer2.example.com orderer3.example.com
+
+sleep 1
+echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
+sleep 14
 
 docker exec cli ./scripts/script.sh mychannel 3 golang
 
